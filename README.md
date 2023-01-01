@@ -10,13 +10,13 @@ Nós iremos utilizar o [cookiecutter](https://cookiecutter.readthedocs.io/en/sta
 
 Por debaixo dos panos o cookiecutter utiliza [jinja](https://jinja.palletsprojects.com/en/3.1.x/), por isso podemos ver um tratamento especial no que passamos como parâmetro para o cookiecutter.
 
-Nesse template estamos utilizando dos filtros do `jinja` (`replace` e `lower`) para tratar alguns textos que fazer parte do nosso código. Validar tudo com o jinja no código pode ser trabalhoso, para resolvermos esse tipo de problema precisamos de um tratamento melhor nos parâmetros passados ao chamar o cookiecutter.
+Nesse template estamos utilizando dois filtros do `jinja` (`replace` e `lower`) para tratar alguns textos que fazer parte do nosso código. Validar tudo com o jinja no código pode ser trabalhoso, para resolvermos esse tipo de problema precisamos de um tratamento melhor nos parâmetros passados ao chamar o cookiecutter.
 
-> Se você quiser algo mais controlado, você pode criar seu próprio CLI e aplicar as validações e integrações necessárias para o seu cenário. Temos um [exemplo de CLI](./custom-cli.py) onde você pode ter como base para entendimento.
+> Se você quiser controlar, validar e aplicar algumas regras de negócio específicas, você pode criar seu próprio CLI (python) e aplicar as validações e integrações necessárias para o seu cenário. Temos um [exemplo de CLI](./custom-cli.py) onde você pode ter como base para entendimento.
 
 ## Substituição
 
-Como você pode ver no template, alguns arquivos Java estão fazendo a utilização do template, indicando que aquele ponto do código deve ser substituído por um valor vindo do usuário, como é o caso da classe [`Application.java`](./%7B%7B%20cookiecutter.application_name%20%7D%7D/src/main/java/com/github/mcruzdev/servicetemplate/Application.java).
+Como você pode ver no template, alguns arquivos Java estão fazendo a utilização do jinja, indicando que aquele ponto do código deve ser substituído por um valor vindo do usuário, como é o caso da classe [`Application.java`](./%7B%7B%20cookiecutter.application_name%20%7D%7D/src/main/java/com/github/mcruzdev/servicetemplate/Application.java).
 
 ```java
 package com.github.{{ cookiecutter.user }}.{{ cookiecutter.application_name | replace('-', '') | lower }};
@@ -34,17 +34,15 @@ public class Application {
 }
 ```
 
-## Utilização
+## Utilização do CLI
 
-Para utilizar a ferramenta é bem simples, basta você utilizar a ferramenta escolhida, em nosso caso o cookiecutter.
+É bem simples utilizar o cookiecutter:
 
 ```sh
     cookiecutter git@github.com:mcruzdev/service-template.git
 ```
 
-Se você preferir pode utilizar o CLi do template:
-
-Para isso é necessário o python3 instalado.
+Se você preferir pode utilizar o CLI que criei, para isso é necessário o python3 instalado.
 
 Execute o comando `generate`:
 ```sh
